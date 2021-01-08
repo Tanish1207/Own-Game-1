@@ -1,5 +1,6 @@
 var villager, villagerImg;
 var coins, coinImg;
+var coin1,coin2,coin3,coin4,coin5,coin6,coin7,coin8,coin9,coin10,coin11;
 var booster, boosterImg;
 var path;
 var enemy, enemyImg, enemyGroup;
@@ -14,6 +15,8 @@ var lion, lionImg, lionGroup;
 var start, startImg;
 var start1, start1Img;
 var finish, finishImg;
+var snake, snakeImg;
+var random;
 
 
 function preload(){
@@ -28,6 +31,7 @@ function preload(){
   start1Img = loadImage("start1.png");
   finishImg = loadImage("finish.png");
   boosterImg = loadImage("Speed.png");
+  snakeImg = loadImage("snake.png");
 
 }
 
@@ -46,17 +50,17 @@ function setup(){
   booster.scale = 0.2;
 
 
-  coin = createSprite(windowWidth-650, height-280, 5,5);
-  coin.addImage(coinImg);
-  coin.scale = 0.14;
+  coin1 = createSprite(windowWidth-650, height-280, 5,5);
+  coin1.addImage(coinImg);
+  coin1.scale = 0.14;
   
-  coin = createSprite(windowWidth-400, height-320, 5,5);
-  coin.addImage(coinImg);
-  coin.scale = 0.14;
+  coin2 = createSprite(windowWidth-400, height-320, 5,5);
+  coin2.addImage(coinImg);
+  coin2.scale = 0.14;
 
-  coin = createSprite(windowWidth-150, height-380, 5,5);
-  coin.addImage(coinImg);
-  coin.scale = 0.14;
+  coin3 = createSprite(windowWidth-150, height-380, 5,5);
+  coin3.addImage(coinImg);
+  coin3.scale = 0.14;
 
   coin = createSprite(windowWidth-140, height-540, 5,5);
   coin.addImage(coinImg);
@@ -125,7 +129,7 @@ function setup(){
   finish.scale = 0.5;
 
   enemyGroup = createGroup();
-  lionGroup = createGroup();
+  //lionGroup = createGroup();
 
   score=0;
   
@@ -141,18 +145,18 @@ function draw(){
 
   if(keyIsDown(UP_ARROW)){
     villager. velocityX = 0;
-    villager.velocityY = -2;
+    villager.velocityY = -4;
   }
   else if(keyIsDown(DOWN_ARROW)){
     villager. velocityX = 0;
-    villager.velocityY = 2;
+    villager.velocityY = 4;
   }
   else if(keyIsDown(LEFT_ARROW)){
-    villager. velocityX = -2;
+    villager. velocityX = -4;
     villager.velocityY = 0;
   }
   else if(keyIsDown(RIGHT_ARROW)){
-    villager. velocityX = 2;
+    villager. velocityX = 4;
     villager.velocityY = 0;
   }
   else{
@@ -160,32 +164,41 @@ function draw(){
     villager.velocityY = 0;
   }
   Enemy();
-  Lion();
+  //Lion();
 
   
 
-  if(villager.isTouching(coin)) {
-    coin.destroyEach();
-    score = score + 2;
+  if(villager.isTouching(coin1)|| villager.isTouching(coin2)) {
+    score ++;
+    coin1.destroy();
   }
-  
 
 
   drawSprites();
 }
 
 function Enemy() {
-  if (frameCount % 400 === 0){
-    var enemy=createSprite(960,680,90,10);
-    enemy.addImage(enemyImg);
+  if (frameCount % 150 === 0){
+    var enemy=createSprite(random(windowWidth-260,windowWidth-760), random(windowHeight-360,windowHeight-860),90,10);
+    var rand = Math.round(random(1,3));
+    switch(rand){
+      case 1: enemy.addImage(enemyImg);
+      break;
+      case 2: enemy.addImage(lionImg);
+      break;
+      case 3: enemy.addImage(snakeImg);
+      break;
+      default:break;
+    }
+    //enemy.addImage(enemyImg);
     enemy.velocityX=-5;
-    enemy.scale = 0.25;
+    enemy.scale = 0.3;
     enemy.lifetime = 200;
     enemyGroup.add(enemy);
   }
 }
 
-function Lion() {
+/*function Lion() {
   if (frameCount % 100 === 0){
     var lion=createSprite(1020,1690,90,10);
     lion.addImage(lionImg);
@@ -194,6 +207,6 @@ function Lion() {
     lion.lifetime = 200;
     lionGroup.add(lion);
   }
-}
+}*/
 
 
