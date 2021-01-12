@@ -21,6 +21,9 @@ var movementSpeed;
 var magnet, magnetImg;
 var dark, darkImg;
 var background3, backgroundImg3;
+var bridge, bridgeImg;
+var arrow, arrowImg, arrowGroup;
+var invisibleBorder;
 
 
 
@@ -41,6 +44,8 @@ function preload(){
   backgroundImg2 = loadImage("bg2.jpg");
   darkImg = loadImage("dark.png");
   backgroundImg3 = loadImage("Game-Over.jpg");
+  bridgeImg = loadImage("bridge1.png");
+  arrowImg = loadImage("arrow1.png");
 
 }
 
@@ -61,6 +66,10 @@ function setup(){
   dark = createSprite(windowWidth-660,height-750,5,5);
   dark.addImage(darkImg);
   dark.scale=0.35;
+
+  invisibleBorder = createSprite(windowWidth-1340,windowHeight-310,1100,10);
+  invisibleBorder.visible = false;
+
 
 
   coin1 = createSprite(windowWidth-650, height-280, 5,5);
@@ -141,9 +150,17 @@ function setup(){
   finish.addImage(finishImg);
   finish.scale = 0.5;
 
+  bridge = createSprite(windowWidth-460,height-480,5,5);
+  bridge.addImage(bridgeImg);
+  bridge.scale = 0.95;
+
+  bridge.depth = villager.depth;
+  villager.depth=villager.depth+1;
+
   
 
   enemyGroup = createGroup();
+  arrowGroup = createGroup();
   //lionGroup = createGroup();
 
   score=0;
@@ -160,23 +177,38 @@ function draw(){
 
   if(keyIsDown(UP_ARROW)){
     villager. velocityX = 0;
-    villager.velocityY = -3;
+    villager.velocityY = -7;
   }
   else if(keyIsDown(DOWN_ARROW)){
     villager. velocityX = 0;
-    villager.velocityY = 3;
+    villager.velocityY = 7;
   }
   else if(keyIsDown(LEFT_ARROW)){
-    villager. velocityX = -3;
+    villager. velocityX = -7;
     villager.velocityY = 0;
   }
   else if(keyIsDown(RIGHT_ARROW)){
-    villager. velocityX = 3;
+    villager. velocityX = 7;
     villager.velocityY = 0;
   }
   else{
     villager. velocityX = 0;
     villager.velocityY = 0;
+  }
+  
+  if(keyDown("SPACE")){
+    createArrow();
+    console.log("message");
+  }
+
+  if(villager.isTouching(invisibleBorder)){
+    villager.collide(invisibleBorder);
+    textSize(45);
+    fill("red");
+    textFont("Georgia")
+    text("This is out of bounds", 500,500);
+
+    
   }
   Enemy();
   //Lion();
@@ -265,6 +297,12 @@ if(villager.isTouching(dark)){
   background(backgroundImg2);
 }
 
+if(arrowGroup.isTouching(enemyGroup)){
+  enemyGroup.destroyEach();
+  arrowGroup.destroyEach();
+
+}
+
 if(villager.isTouching(enemyGroup)){
   background(backgroundImg3);
   gameState=END;
@@ -297,7 +335,7 @@ if(villager.isTouching(enemyGroup)){
 
 function Enemy() {
   if (frameCount % 150 === 0){
-    var enemy=createSprite(random(windowWidth-260,windowWidth-760), random(windowHeight-360,windowHeight-860),90,10);
+    var enemy=createSprite(random(windowWidth-100,windowWidth-760), random(windowHeight-160,windowHeight-860),90,10);
     var rand = Math.round(random(1,3));
     switch(rand){
       case 1: enemy.addImage(enemyImg);
@@ -311,8 +349,10 @@ function Enemy() {
     //enemy.addImage(enemyImg);
     enemy.velocityX=-5;
     enemy.scale = 0.3;
-    enemy.lifetime = 200;
+    enemy.lifetime = windowWidth/enemy.velocity;
     enemyGroup.add(enemy);
+    //enemyGroup.setCollider("rectangle",0,0,enemyGroup.width,enemyGroup.height);
+    //enemyGroup.debug = true;
   }
 }
 
@@ -327,4 +367,13 @@ function Enemy() {
   }
 }*/
 
+function createArrow(){
+  var arrow = createSprite(villager.x,villager.y,villager.width,villager.height);
+  arrow.addImage(arrowImg);
+  arrow.scale = 0.25;
+  arrow.velocityX = 5;
+  arrow.velocityY = 0;
+  arrowGroup.add(arrow);
+
+}
 
