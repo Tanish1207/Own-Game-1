@@ -20,10 +20,14 @@ var random;
 var movementSpeed;
 var magnet, magnetImg;
 var dark, darkImg;
-var background3, backgroundImg3;
+var background3, backgroundImg3, background4, backgroundImg4;
 var bridge, bridgeImg;
 var arrow, arrowImg, arrowGroup;
-var invisibleBorder;
+var invisibleBorder,invisibleBorder1,invisibleBorder2,invisibleBorder3,invisibleBorder4,invisibleBorder5,invisibleBorder6,invisibleBorder7;
+var invisibleBorder8,invisibleBorder9, invisibleBorder10, invisibleBorder11, invisibleBorder12, invisbleBorder13, invisbleBorder14;
+var survivalTime;
+var rule, ruleImg;
+
 
 
 
@@ -46,6 +50,8 @@ function preload(){
   backgroundImg3 = loadImage("Game-Over.jpg");
   bridgeImg = loadImage("bridge1.png");
   arrowImg = loadImage("arrow1.png");
+  backgroundImg4 = loadImage("Good.png");
+  ruleImg = loadImage("rules.jpg");
 
 }
 
@@ -63,12 +69,64 @@ function setup(){
   magnet.addImage(magnetImg);
   magnet.scale = 0.2;
 
-  dark = createSprite(windowWidth-660,height-750,5,5);
+  dark = createSprite(windowWidth-1260,height-770,5,5);
   dark.addImage(darkImg);
   dark.scale=0.35;
 
-  invisibleBorder = createSprite(windowWidth-1340,windowHeight-310,1100,10);
+  invisibleBorder = createSprite(windowWidth-1380,windowHeight-365,1100,10);
   invisibleBorder.visible = false;
+
+  invisibleBorder1 = createSprite(windowWidth-1380,windowHeight-70,1100,10);
+  invisibleBorder1.visible = false;
+
+  invisibleBorder2 = createSprite(windowWidth-670,windowHeight-350,180,10);
+  invisibleBorder2.visible = false;
+
+  invisibleBorder3 = createSprite(windowWidth-690,windowHeight-185,700,10);
+  invisibleBorder3.visible = false;
+
+  invisibleBorder4 = createSprite(windowWidth-350,windowHeight-470,10,200)
+  invisibleBorder4.visible = false;
+
+  invisibleBorder5 = createSprite(windowWidth-590,windowHeight-470,10,200)
+  invisibleBorder5.visible = false;
+
+  invisibleBorder6 = createSprite(windowWidth-590,windowHeight-470,10,200)
+  invisibleBorder6.visible = false;
+
+  invisibleBorder7 = createSprite(windowWidth-1090,windowHeight-420,1000,10)
+  invisibleBorder7.visible = false;
+
+  invisibleBorder8 = createSprite(windowWidth-690,windowHeight-700,1240,10);
+  invisibleBorder8.visible = false;
+
+  invisibleBorder9 = createSprite(windowWidth-300,windowHeight-230,350,10);
+  invisibleBorder9.visible = false;
+
+  invisibleBorder10 = createSprite(windowWidth-35,windowHeight-470,10,400);
+  invisibleBorder10.visible = false;
+
+  invisibleBorder11 = createSprite(windowWidth-1605,windowHeight-630,10,350);
+  invisibleBorder11.visible = false;
+
+  invisibleBorder12 = createSprite(windowWidth-900,windowHeight-880,1650,10);
+  invisibleBorder12.visible = false;
+
+  invisibleBorder13 = createSprite(windowWidth-700,windowHeight-780,1150,30);
+  invisibleBorder13.visible = false;
+
+  invisibleBorder14 = createSprite(windowWidth-20,windowHeight-740,10,70);
+  invisibleBorder14.visible = false;
+  
+  rule = createSprite(windowWidth-1710, windowHeight-780,40,40);
+  rule.addImage(ruleImg);
+  rule.scale = 0.92;
+
+  //invisibleBorder11 = createSprite(windowWidth-)
+
+
+
+
 
 
 
@@ -146,7 +204,7 @@ function setup(){
   start1.addImage(start1Img);
   start1.scale = 0.5;
 
-  finish = createSprite(windowWidth-100, height-740, 5,5);
+  finish = createSprite(windowWidth-40, height-740, 5,5);
   finish.addImage(finishImg);
   finish.scale = 0.5;
 
@@ -172,7 +230,13 @@ function draw(){
   background(backgroundImg);
   fill("white");    
   textSize(35);
-  text("Score:"+score, 600,850);
+  text("Score:"+score, windowWidth-1300,windowHeight-50);
+
+  stroke("white");
+  textSize(30);
+  fill(255);
+  survivalTime=Math.ceil(frameCount/frameRate())
+  text("Survival Time: "+ survivalTime, windowWidth-600,windowHeight-70);
 
 
   if(keyIsDown(UP_ARROW)){
@@ -210,8 +274,131 @@ function draw(){
 
     
   }
+  if(villager.isTouching(invisibleBorder1)){
+    villager.collide(invisibleBorder1);
+    textSize(45);
+    fill("red");
+    textFont("Georgia")
+    text("This is out of bounds", 500,500);
+
+    
+  }
+  if(villager.isTouching(invisibleBorder2)){
+    villager.collide(invisibleBorder2);
+    textSize(45);
+    fill("red");
+    textFont("Georgia")
+    text("This is out of bounds", 500,500);
+
+    
+  }
+  if(villager.isTouching(invisibleBorder3)){
+    villager.collide(invisibleBorder3);
+    textSize(45);
+    fill("red");
+    textFont("Georgia")
+    text("This is out of bounds", 500,500);
+
+    
+  }
+  if(villager.isTouching(invisibleBorder4)){
+    villager.collide(invisibleBorder4);
+    textSize(45);
+    fill("red");
+    textFont("Georgia")
+    text("This is out of bounds", 500,500);
+
+    
+  }
+  if(villager.isTouching(invisibleBorder5)){
+    villager.collide(invisibleBorder5);
+    textSize(45);
+    fill("red");
+    textFont("Georgia")
+    text("This is out of bounds", 500,500);
+
+    
+  }
+
+  if(villager.isTouching(invisibleBorder6)){
+    villager.collide(invisibleBorder6);
+    textSize(45);
+    fill("red");
+    textFont("Georgia")
+    text("This is out of bounds", 500,500);
+
+    
+  }
+
+  if(villager.isTouching(invisibleBorder7)){
+    villager.collide(invisibleBorder7);
+    textSize(45);
+    fill("red");
+    textFont("Georgia")
+    text("This is out of bounds", 500,500);
+
+    
+  }
+  if(villager.isTouching(invisibleBorder8)){
+    villager.collide(invisibleBorder8);
+    textSize(45);
+    fill("red");
+    textFont("Georgia")
+    text("This is out of bounds", 500,500);
+
+    
+  }
+
+  if(villager.isTouching(invisibleBorder9)){
+    villager.collide(invisibleBorder9);
+    textSize(45);
+    fill("red");
+    textFont("Georgia")
+    text("This is out of bounds", 500,500);
+
+    
+  }
+  if(villager.isTouching(invisibleBorder10)){
+    villager.collide(invisibleBorder10);
+    textSize(45);
+    fill("red");
+    textFont("Georgia")
+    text("This is out of bounds", 500,500);
+
+    
+  }
+  if(villager.isTouching(invisibleBorder11)){
+    villager.collide(invisibleBorder11);
+    textSize(45);
+    fill("red");
+    textFont("Georgia")
+    text("This is out of bounds", 500,500);
+
+    
+  }
+  if(villager.isTouching(invisibleBorder12)){
+    villager.collide(invisibleBorder12);
+    textSize(45);
+    fill("red");
+    textFont("Georgia")
+    text("This is out of bounds", 500,500);
+
+    
+  }
+  if(villager.isTouching(invisibleBorder13)){
+    background(backgroundImg2);
+
+    
+  }
+  if(villager.isTouching(invisibleBorder14)){
+    villager.collide(invisibleBorder12);
+
+    
+  }
   Enemy();
   //Lion();
+  
+
 
   
 
@@ -325,6 +512,33 @@ if(villager.isTouching(enemyGroup)){
   coin16.destroy();
   start1.destroy();
   finish.destroy();
+}
+if(villager.isTouching(finish)){
+  background(backgroundImg4);
+  enemyGroup.destroyEach();
+  coin1.destroy();
+  coin2.destroy();
+  coin3.destroy();
+  coin4.destroy();
+  coin5.destroy();
+  coin6.destroy();
+  coin7.destroy();
+  coin8.destroy();
+  coin9.destroy();
+  coin10.destroy();
+  coin11.destroy();
+  coin12.destroy();
+  coin13.destroy();
+  coin14.destroy();
+  coin15.destroy();
+  coin16.destroy();
+  start1.destroy();
+  bridge.destroy();
+  start.destroy();
+  start1.destroy();
+  rule.destroy();
+  dark.destroy();
+
 }
 
   
