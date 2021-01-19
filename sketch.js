@@ -281,10 +281,11 @@ function draw(){
   //survivalTime=Math.ceil(frameCount/frameRate());
   text("Survival Time: "+ survivalTime, windowWidth-600,windowHeight-70);
 
-  if(mouseIsPressed){
+  if(mouseIsPressed || touches.length>0){
     rule.destroy();
     totalTimeElaspedWhilePause = frameCount;
     getStartedToggle = true;
+    touches=[];
   }
   if(getStartedToggle){
     Enemy();
