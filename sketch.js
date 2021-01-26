@@ -77,6 +77,9 @@ function playMusic() {
 function setup() {
     let mainCanvas = createCanvas(windowWidth, windowHeight);
 
+    console.log("Width: ", windowWidth);
+    console.log("Height: ", windowHeight);
+
     mainCanvas.mousePressed(playMusic);
 
     onTheNextSceneToggle = false;
@@ -91,11 +94,11 @@ function setup() {
     villager.velocityX = 0;
     villager.velocityY = 0;
 
-    magnet = createSprite(windowWidth - 500, height - 600, 5, 5);
+    magnet = createSprite(windowWidth - (windowWidth*0.26), height - (windowHeight*0.64), 5, 5);
     magnet.addImage(magnetImg);
     magnet.scale = 0.2;
 
-    dark = createSprite(windowWidth - 330, height - 790, 5, 5);
+    dark = createSprite(windowWidth - (windowWidth*0.17), height - (windowHeight*0.84), 5, 5);
     dark.addImage(darkImg);
     dark.scale = 0.35;
 
@@ -118,45 +121,45 @@ function setup() {
         invisibleBorders[i].visible = false;
     }
 
-    coins.push(createSprite(windowWidth - 650, height - 280, 5, 5));
-    coins.push(createSprite(windowWidth - 400, height - 320, 5, 5));
-    coins.push(createSprite(windowWidth - 150, height - 380, 5, 5));
-    coins.push(createSprite(windowWidth - 140, height - 540, 5, 5));
-    coins.push(createSprite(windowWidth - 340, height - 640, 5, 5));
-    coins.push(createSprite(windowWidth - 640, height - 640, 5, 5));
-    coins.push(createSprite(windowWidth - 940, height - 580, 5, 5));
-    coins.push(createSprite(windowWidth - 940, height - 580, 5, 5));
-    coins.push(createSprite(windowWidth - 1190, height - 490, 5, 5));
-    coins.push(createSprite(windowWidth - 1190, height - 490, 5, 5));
-    coins.push(createSprite(windowWidth - 1190, height - 490, 5, 5));
-    coins.push(createSprite(windowWidth - 1490, height - 530, 5, 5));
-    coins.push(createSprite(windowWidth - 1390, height - 730, 5, 5));
-    coins.push(createSprite(windowWidth - 1090, height - 780, 5, 5));
-    coins.push(createSprite(windowWidth - 750, height - 780, 5, 5));
-    coins.push(createSprite(windowWidth - 440, height - 780, 5, 5));
+    coins.push(createSprite(windowWidth - (windowWidth*0.34), height - (height * 0.3), 5, 5));
+    coins.push(createSprite(windowWidth - (windowWidth*0.21), height - (height * 0.34), 5, 5));
+    coins.push(createSprite(windowWidth - (windowWidth*0.08), height - (height * 0.4), 5, 5));
+    coins.push(createSprite(windowWidth - (windowWidth*0.072), height - (height * 0.57), 5, 5));
+    coins.push(createSprite(windowWidth - (windowWidth*0.17), height - (height * 0.69), 5, 5));
+    coins.push(createSprite(windowWidth - (windowWidth*0.33), height - (height * 0.69), 5, 5));
+    coins.push(createSprite(windowWidth - (windowWidth*0.49), height - (height * 0.62), 5, 5));
+    coins.push(createSprite(windowWidth - (windowWidth*0.49), height - (height * 0.62), 5, 5));
+    coins.push(createSprite(windowWidth - (windowWidth*0.62), height - (height * 0.52), 5, 5));
+    coins.push(createSprite(windowWidth - (windowWidth*0.62), height - (height * 0.52), 5, 5));
+    coins.push(createSprite(windowWidth - (windowWidth*0.62), height - (height * 0.52), 5, 5));
+    coins.push(createSprite(windowWidth - (windowWidth*0.78), height - (height * 0.565), 5, 5));
+    coins.push(createSprite(windowWidth - (windowWidth*0.72), height - (height * 0.78), 5, 5));
+    coins.push(createSprite(windowWidth - (windowWidth*0.57), height - (height * 0.83), 5, 5));
+    coins.push(createSprite(windowWidth - (windowWidth*0.39), height - (height * 0.83), 5, 5));
+    coins.push(createSprite(windowWidth - (windowWidth*0.23), height - (height * 0.83), 5, 5));
 
     for (let i = 0; i < NUMBER_OF_COINS; i++) {
         coins[i].addImage(coinImg);
         coins[i].scale = 0.14;
     }
 
-    start = createSprite(windowWidth - 1750, height - 90, 5, 5);
+    start = createSprite(windowWidth - (windowWidth*0.91), height -(windowHeight*0.096), 5, 5);
     start.addImage(startImg);
     start.scale = 0.5;
 
-    start1 = createSprite(windowWidth - 1750, height - 200, 5, 5);
+    start1 = createSprite(windowWidth - (windowWidth*0.91), height - (windowHeight*0.21), 5, 5);
     start1.addImage(start1Img);
     start1.scale = 0.5;
 
-    finish = createSprite(windowWidth - 40, height - 740, 5, 5);
+    finish = createSprite(windowWidth - (windowWidth*0.02), height - (windowHeight*0.79), 5, 5);
     finish.addImage(finishImg);
     finish.scale = 0;
 
-    rollbackarrow = createSprite(windowWidth - 40, height - 790, 5, 5);
+    rollbackarrow = createSprite(windowWidth -(windowWidth*0.02), height - (windowHeight*0.84), 5, 5);
     rollbackarrow.addImage(rollbackarrowImg);
     rollbackarrow.scale = 0.3;
 
-    bridge = createSprite(windowWidth - 460, height - 480, 5, 5);
+    bridge = createSprite(windowWidth - (windowWidth*0.24), height - (windowHeight*0.51), 5, 5);
     bridge.addImage(bridgeImg);
     bridge.scale = 0.95;
 
@@ -184,17 +187,17 @@ function draw() {
     background(currentBackground);
     fill("white");
     textSize(35);
-    text("Score:" + score, windowWidth - 1300, windowHeight - 50);
+    text("Score:" + score, windowWidth - (windowWidth*0.68), windowHeight - 50);
 
     fill("white");
     textSize(35);
-    text("Arrows:" + arrowsLeft, windowWidth - 950, windowHeight - 50);
+    text("Arrows:" + arrowsLeft, windowWidth -(windowWidth*0.494), windowHeight - 50);
 
     stroke("white");
-    textSize(30);
+    textSize(35);
     fill(255);
     //survivalTime=Math.ceil(frameCount/frameRate());
-    text("Remaining Time: " + (maximumTime - survivalTime), windowWidth - 600, windowHeight - 70);
+    text("Remaining Time: " + (maximumTime - survivalTime), windowWidth - (windowWidth*0.3125), windowHeight - 50);
 
     // if (frameCount % Math.round(random(600, 1000)) === 0) {
     //     time = time - 0.03;
@@ -318,8 +321,8 @@ function draw() {
             coins[i].destroy();
         }
 
-        villager.position.x = windowWidth - 1800;
-        villager.position.y = windowHeight - 820;
+        villager.position.x = windowWidth - (windowWidth*0.9375);
+        villager.position.y = windowHeight - (windowHeight*0.875);
         start1.destroy();
         rollbackarrow.destroy();
         //coin1.destroy();
@@ -329,33 +332,33 @@ function draw() {
         dark.destroy();
 
 
-        coins[0] = createSprite(windowWidth - 1600, height - 800, 5, 5);
+        coins[0] = createSprite(windowWidth - (windowWidth*0.83), height - (windowHeight*0.85), 5, 5);
 
-        coins[1] = createSprite(windowWidth - 1300, height - 800, 5, 5);
+        coins[1] = createSprite(windowWidth - (windowWidth*0.68), height - (windowHeight*0.85), 5, 5);
 
-        coins[2] = createSprite(windowWidth - 1000, height - 800, 5, 5);
+        coins[2] = createSprite(windowWidth - (windowWidth*0.52), height - (windowHeight*0.85), 5, 5);
 
-        coins[3] = createSprite(windowWidth - 700, height - 800, 5, 5);
+        coins[3] = createSprite(windowWidth - (windowWidth*0.36), height - (windowHeight*0.85),5,5);
 
-        coins[4] = createSprite(windowWidth - 500, height - 600, 5, 5);
+        coins[4] = createSprite(windowWidth - (windowWidth*0.26), height - (windowHeight*0.64),5, 5);
 
-        coins[5] = createSprite(windowWidth - 700, height - 480, 5, 5);
+         coins[5] = createSprite(windowWidth -(windowWidth*0.36), height - (windowHeight*0.51), 5, 5);
 
-        coins[6] = createSprite(windowWidth - 1000, height - 580, 5, 5);
+        coins[6] = createSprite(windowWidth - (windowWidth*0.52), height - (windowHeight*0.62),5, 5);
 
-        coins[7] = createSprite(windowWidth - 1300, height - 660, 5, 5);
+        coins[7] = createSprite(windowWidth - (windowWidth*0.16), height - (windowHeight*0.7), 5, 5);
 
-        coins[8] = createSprite(windowWidth - 1600, height - 650, 5, 5);
+        coins[8] = createSprite(windowWidth - (windowWidth*0.83), height - (windowHeight*0.69), 5, 5);
 
-        coins[9] = createSprite(windowWidth - 1750, height - 480, 5, 5);
+        coins[9] = createSprite(windowWidth - (windowWidth*0.91), height - (windowHeight*0.51), 5, 5);
 
-        coins[10] = createSprite(windowWidth - 1600, height - 320, 5, 5);
+        coins[10] = createSprite(windowWidth - (windowWidth*0.83), height - (windowHeight*0.34), 5, 5);
 
-        coins[11] = createSprite(windowWidth - 1300, height - 300, 5, 5);
+        coins[11] = createSprite(windowWidth - (windowWidth*0.68), height - (windowHeight*0.32), 5, 5);
 
-        coins[12] = createSprite(windowWidth - 1000, height - 270, 5, 5);
+        coins[12] = createSprite(windowWidth - (windowWidth*0.52), height - (windowHeight*0.29), 5, 5);
 
-        coins[13] = createSprite(windowWidth - 700, height - 250, 5, 5);
+        coins[13] = createSprite(windowWidth - (windowWidth*0.36), height - (windowHeight*0.27), 5, 5);
 
 
         for (let i = 0; i < NUMBER_OF_COINS; i++) {
@@ -391,16 +394,21 @@ function draw() {
             invisibleBorders[i].visible = false;
         }
 
-        finish = createSprite(windowWidth - 60, height - 80, 5, 5);
+        finish = createSprite(windowWidth - (windowWidth*0.1225), height - (windowHeight*0.103), 5, 5);
         finish.addImage(finishImg);
         finish.scale = 0.5;
-        magnet = createSprite(windowWidth - 400, height - 600, 5, 5);
+        magnet = createSprite(windowWidth - (windowWidth*0.2), height - (windowHeight*0.64), 5, 5);
         magnet.addImage(magnetImg);
         magnet.scale = 0.2;
 
 
         onTheNextSceneToggle = false;
     }
+
+    for (let i = 0; i < NUMBER_OF_invisibleBORDERS; i++) {
+        invisibleBorders[i].destroy();
+    }
+
 
 
     drawSprites();
