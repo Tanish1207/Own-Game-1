@@ -28,8 +28,14 @@ var currentBackground;
 var getStartedToggle;
 var totalTimeElaspedWhilePause;
 var arrowsLeft;
+var joyStick, joystickImg;
 let mySound;
 var time;
+var touches=[];
+var down, downImg;
+var up, upImg;
+var right, rightImg;
+var left, leftImg;
 
 let coins;
 let invisibleBorders;
@@ -62,6 +68,11 @@ function preload() {
     ruleImg = loadImage("rules3.jpg");
     bgflipImg = loadImage("bgflip.jpg");
     rollbackarrowImg = loadImage("rollbackarrow.png");
+    joystickImg = loadImage("joystick.png");
+    downImg = loadImage("down.png");
+    upImg = loadImage("up.png");
+    rightImg = loadImage("right.png");
+    leftImg = loadImage("left.png");
     soundFormats('mp3');
     mySound = loadSound('arcade_game_music_type_beat_hip_hop_r_b_instrumental_-2631681950540740964');
 
@@ -71,7 +82,7 @@ function preload() {
 }
 
 function playMusic() {
-    mySound.play();
+    //mySound.play();
 }
 
 function setup() {
@@ -88,6 +99,7 @@ function setup() {
     currentBackground = backgroundImg;
 
     //sprites
+    // villager = createSprite(windowWidth-(windowWidth*0.95), windowHeight-(windowHeight*0.08), 40, 40);
     villager = createSprite(85, height - 110, 40, 40);
     villager.addImage(villagerImg);
     villager.scale = 0.25;
@@ -102,20 +114,35 @@ function setup() {
     dark.addImage(darkImg);
     dark.scale = 0.35;
 
-    invisibleBorders.push(createSprite(windowWidth - 1380, windowHeight - 365, 1100, 10));
-    invisibleBorders.push(createSprite(windowWidth - 1380, windowHeight - 70, 1100, 10));
-    invisibleBorders.push(createSprite(windowWidth - 670, windowHeight - 350, 180, 10));
-    invisibleBorders.push(createSprite(windowWidth - 690, windowHeight - 185, 700, 10));
-    invisibleBorders.push(createSprite(windowWidth - 350, windowHeight - 470, 10, 200));
-    invisibleBorders.push(createSprite(windowWidth - 590, windowHeight - 470, 10, 200));
-    invisibleBorders.push(createSprite(windowWidth - 590, windowHeight - 470, 10, 200));
-    invisibleBorders.push(createSprite(windowWidth - 1090, windowHeight - 420, 1000, 10));
-    invisibleBorders.push(createSprite(windowWidth - 690, windowHeight - 700, 1240, 10));
-    invisibleBorders.push(createSprite(windowWidth - 300, windowHeight - 230, 350, 10));
-    invisibleBorders.push(createSprite(windowWidth - 35, windowHeight - 470, 10, 400));
-    invisibleBorders.push(createSprite(windowWidth - 1605, windowHeight - 630, 10, 350));
-    invisibleBorders.push(createSprite(windowWidth - 900, windowHeight - 880, 1650, 10));
-    invisibleBorders.push(createSprite(windowWidth - 20, windowHeight - 740, 10, 70));
+    invisibleBorders.push(createSprite(windowWidth - (windowWidth*0.718), windowHeight - (windowHeight*0.39), (windowWidth*0.57), 10));
+    invisibleBorders.push(createSprite(windowWidth - (windowWidth*0.718), windowHeight - (windowHeight*0.07),(windowWidth*0.57), 10));
+    invisibleBorders.push(createSprite(windowWidth - (windowWidth*0.35), windowHeight - (windowHeight*0.37), (windowWidth*0.09), 10));
+    invisibleBorders.push(createSprite(windowWidth - (windowWidth*0.36), windowHeight - (windowHeight*0.19), (windowWidth*0.36), 10));
+    invisibleBorders.push(createSprite(windowWidth - (windowWidth*0.18), windowHeight - (windowHeight*0.5), 10, (windowHeight*0.21)));
+    invisibleBorders.push(createSprite(windowWidth - (windowWidth*0.3), windowHeight - (windowHeight*0.5), 10, (windowHeight*0.21)));
+    invisibleBorders.push(createSprite(windowWidth - (windowWidth*0.3), windowHeight - (windowHeight*0.5), 10, (windowHeight*0.21)));
+    invisibleBorders.push(createSprite(windowWidth - (windowWidth*0.57), windowHeight - (windowWidth*0.45), (windowWidth*0.52), 10));
+    invisibleBorders.push(createSprite(windowWidth - (windowWidth*0.36), windowHeight - (windowHeight*0.75), (windowWidth*0.65), 10));
+    invisibleBorders.push(createSprite(windowWidth - (windowWidth*0.16), windowHeight - (windowHeight*0.25), (windowWidth*0.18), 10));
+    invisibleBorders.push(createSprite(windowWidth - (windowWidth*0.02), windowHeight - (windowHeight*0.5), 10, (windowHeight*0.43)));
+    invisibleBorders.push(createSprite(windowWidth - (windowWidth*0.836), windowHeight - (windowHeight*0.67), 10, (windowHeight*0.37)));
+    invisibleBorders.push(createSprite(windowWidth - (windowWidth*0.47), windowHeight - (windowHeight*0.94), (windowWidth*0.86), 10));
+    invisibleBorders.push(createSprite(windowWidth - (windowWidth*0.01), windowHeight - (windowWidth*0.79), 10, (windowHeight*0.07)));
+
+    // invisibleBorders.push(createSprite(windowWidth - 1380, windowHeight - 365, 1100, 10));
+    // invisibleBorders.push(createSprite(windowWidth - 1380, windowHeight - 70, 1100, 10));
+    // invisibleBorders.push(createSprite(windowWidth - 670, windowHeight - 350, 180, 10));
+    // invisibleBorders.push(createSprite(windowWidth - 690, windowHeight - 185, 700, 10));
+    // invisibleBorders.push(createSprite(windowWidth - 350, windowHeight - 470, 10, 200));
+    // invisibleBorders.push(createSprite(windowWidth - 590, windowHeight - 470, 10, 200));
+    // invisibleBorders.push(createSprite(windowWidth - 590, windowHeight - 470, 10, 200));
+    // invisibleBorders.push(createSprite(windowWidth - 1090, windowHeight - 420, 1000, 10));
+    // invisibleBorders.push(createSprite(windowWidth - 690, windowHeight - 700, 1240, 10));
+    // invisibleBorders.push(createSprite(windowWidth - 300, windowHeight - 230, 350, 10));
+    // invisibleBorders.push(createSprite(windowWidth - 35, windowHeight - 470, 10, 400));
+    // invisibleBorders.push(createSprite(windowWidth - 1605, windowHeight - 630, 10, 350));
+    // invisibleBorders.push(createSprite(windowWidth - 900, windowHeight - 880, 1650, 10));
+    // invisibleBorders.push(createSprite(windowWidth - 20, windowHeight - 740, 10, 70));
 
     for (let i = 0; i < NUMBER_OF_invisibleBORDERS; i++) {
         invisibleBorders[i].visible = false;
@@ -155,7 +182,7 @@ function setup() {
     finish.addImage(finishImg);
     finish.scale = 0;
 
-    rollbackarrow = createSprite(windowWidth -(windowWidth*0.02), height - (windowHeight*0.84), 5, 5);
+    rollbackarrow = createSprite(windowWidth -(windowWidth*0.7), height - (windowHeight*0.09), 5, 5);
     rollbackarrow.addImage(rollbackarrowImg);
     rollbackarrow.scale = 0.3;
 
@@ -167,7 +194,29 @@ function setup() {
     rule.addImage(ruleImg);
     rule.scale = 1.5;
 
-    //     villager.x = World.mouseX
+    joyStick= createSprite(windowWidth - (windowWidth*0.7),windowHeight-(windowHeight*0.05),40,40);
+    joyStick.addImage(joystickImg);
+    joyStick.scale = 0.4;
+
+    up = createSprite(windowWidth-(windowWidth*0.7),windowHeight-(windowHeight*0.09),40,40);
+    up.addImage(upImg);
+    up.scale = 0.1;
+    down = createSprite(windowWidth-(windowWidth*0.7),windowHeight-(windowHeight*0.05),40,40);
+    down.addImage(downImg);
+    down.scale = 0.1;
+    right = createSprite(windowWidth-(windowWidth*0.65),windowHeight-(windowHeight*0.07),40,40);
+    right.addImage(rightImg);
+    right.scale = 0.1;
+    left = createSprite(windowWidth-(windowWidth*0.75),windowHeight-(windowHeight*0.07),40,40);
+    left.addImage(leftImg);
+    left.scale = 0.1;
+
+
+
+
+
+    // villager.x = World.mouseX
+     // villager.y = World.mouseY
 
     bridge.depth = villager.depth;
     villager.depth = villager.depth + 1;
@@ -214,10 +263,36 @@ function draw() {
         getStartedToggle = false;
     }
 
-    if (mouseIsPressed || touches.length > 0) {
+    if (mouseIsPressed || touches.up) {
+        //rule.destroy();
+        totalTimeElaspedWhilePause = frameCount;
+        getStartedToggle = true;
+        villager.velocityX = 0;
+        villager.velocityY = -6;
+        touches = [];
+    }
+    if (mouseIsPressed || touches.down) {
+        //rule.destroy();
+        totalTimeElaspedWhilePause = frameCount;
+        getStartedToggle = true;
+        villager.velocityX = 0;
+        villager.velocityY = 6;
+        touches = [];
+    }
+    if (mouseIsPressed || touches.right) {
         rule.destroy();
         totalTimeElaspedWhilePause = frameCount;
         getStartedToggle = true;
+        villager.velocityX = 6;
+        villager.velocityY = 0;
+        touches = [];
+    }
+    if (mouseIsPressed || touches.left) {
+        rule.destroy();
+        totalTimeElaspedWhilePause = frameCount;
+        getStartedToggle = true;
+        villager.velocityX = -6;
+        villager.velocityY = 0;
         touches = [];
     }
     if (getStartedToggle) {
@@ -371,23 +446,41 @@ function draw() {
             invisibleBorders[i].destroy();
         }
 
-        invisibleBorders[0] = createSprite(windowWidth - 1380, windowHeight - 715, 1600, 10);
+         invisibleBorders[0] = createSprite(windowWidth - (windowWidth*0.71875), windowHeight - (windowHeight*0.723), (windowWidth*0.63), 10);
+        //
+        invisibleBorders[1] = createSprite(windowWidth - (windowWidth*0.71875), windowHeight - (windowHeight*0.94), (windowWidth*0.89), 10);
+        //
+         invisibleBorders[2] = createSprite(windowWidth - (windowWidth*0.18), windowHeight - (windowHeight*0.8377), 10, (windowHeight*0.85));
+        //
+         invisibleBorders[3] = createSprite(windowWidth - (windowWidth*0.51), windowHeight - (windowHeight*0.44), (windowWidth*0.677), 10);
+        //
+        invisibleBorders[4] = createSprite(windowWidth - (windowWidth*0.99), windowHeight - (windowHeight*0.517), 10, (windowHeight*0.53));
+        //
+         invisibleBorders[5] = createSprite(windowWidth - (windowWidth*0.677), windowHeight - (windowHeight*0.54), (windowWidth*0.41), 10);
+        //
+         invisibleBorders[6] = createSprite(windowWidth - (windowWidth*0.71875), windowHeight - (windowHeight*0.155), (windowWidth*0.67), 10);
+        //
+         invisibleBorders[7] = createSprite(windowWidth - (windowWidth*0.4), windowHeight - (windowHeight*0.101), (windowWidth*0.47), 10);
+        //
+         invisibleBorders[8] = createSprite(windowWidth - (windowWidth*0.41), windowHeight - (windowHeight*0.38), (windowWidth*0.73), 10);
 
-        invisibleBorders[1] = createSprite(windowWidth - 1380, windowHeight - 885, 2100, 10);
+        //invisibleBorders[0] = createSprite(windowWidth - 1380, windowHeight - 715, 1600, 10);
 
-        invisibleBorders[2] = createSprite(windowWidth - 350, windowHeight - 785, 10, 800);
-
-        invisibleBorders[3] = createSprite(windowWidth - 980, windowHeight - 415, 1300, 10);
-
-        invisibleBorders[4] = createSprite(windowWidth - 1900, windowHeight - 485, 10, 500);
-
-        invisibleBorders[5] = createSprite(windowWidth - 1300, windowHeight - 505, 800, 10);
-
-        invisibleBorders[6] = createSprite(windowWidth - 1380, windowHeight - 145, 1300, 10);
-
-        invisibleBorders[7] = createSprite(windowWidth - 780, windowHeight - 95, 900, 10);
-
-        invisibleBorders[8] = createSprite(windowWidth - 800, windowHeight - 355, 1400, 10);
+        // invisibleBorders[1] = createSprite(windowWidth - 1380, windowHeight - 885, 2100, 10);
+        //
+        // invisibleBorders[2] = createSprite(windowWidth - 350, windowHeight - 785, 10, 800);
+        //
+        // invisibleBorders[3] = createSprite(windowWidth - 980, windowHeight - 415, 1300, 10);
+        //
+        // invisibleBorders[4] = createSprite(windowWidth - 1900, windowHeight - 485, 10, 500);
+        //
+        // invisibleBorders[5] = createSprite(windowWidth - 1300, windowHeight - 505, 800, 10);
+        //
+        // invisibleBorders[6] = createSprite(windowWidth - 1380, windowHeight - 145, 1300, 10);
+        //
+        // invisibleBorders[7] = createSprite(windowWidth - 780, windowHeight - 95, 900, 10);
+        //
+        // invisibleBorders[8] = createSprite(windowWidth - 800, windowHeight - 355, 1400, 10);
 
 
         for (let i = 0; i < NUMBER_OF_invisibleBORDERS; i++) {
@@ -405,9 +498,9 @@ function draw() {
         onTheNextSceneToggle = false;
     }
 
-    for (let i = 0; i < NUMBER_OF_invisibleBORDERS; i++) {
-        invisibleBorders[i].destroy();
-    }
+    //for (let i = 0; i < NUMBER_OF_invisibleBORDERS; i++) {
+        //invisibleBorders[i].destroy();
+   // }
 
 
 
