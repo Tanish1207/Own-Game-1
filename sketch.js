@@ -31,7 +31,6 @@ var arrowsLeft;
 var joyStick, joystickImg;
 let mySound;
 var time;
-var touches=[];
 var down, downImg;
 var up, upImg;
 var right, rightImg;
@@ -99,8 +98,8 @@ function setup() {
     currentBackground = backgroundImg;
 
     //sprites
-    // villager = createSprite(windowWidth-(windowWidth*0.95), windowHeight-(windowHeight*0.08), 40, 40);
-    villager = createSprite(85, height - 110, 40, 40);
+    villager = createSprite(windowWidth-(windowWidth*0.95), windowHeight-(windowHeight*0.08), 40, 40);
+    // villager = createSprite(85, height - 110, 40, 40);
     villager.addImage(villagerImg);
     villager.scale = 0.25;
     villager.velocityX = 0;
@@ -263,52 +262,30 @@ function draw() {
         getStartedToggle = false;
     }
 
-    if (mouseIsPressed || touches.up) {
-        //rule.destroy();
-        totalTimeElaspedWhilePause = frameCount;
-        getStartedToggle = true;
-        villager.velocityX = 0;
-        villager.velocityY = -6;
-        touches = [];
-    }
-    if (mouseIsPressed || touches.down) {
-        //rule.destroy();
-        totalTimeElaspedWhilePause = frameCount;
-        getStartedToggle = true;
-        villager.velocityX = 0;
-        villager.velocityY = 6;
-        touches = [];
-    }
-    if (mouseIsPressed || touches.right) {
+    if (mouseIsPressed || touches.length > 0) {
         rule.destroy();
         totalTimeElaspedWhilePause = frameCount;
         getStartedToggle = true;
-        villager.velocityX = 6;
-        villager.velocityY = 0;
-        touches = [];
     }
-    if (mouseIsPressed || touches.left) {
-        rule.destroy();
-        totalTimeElaspedWhilePause = frameCount;
-        getStartedToggle = true;
-        villager.velocityX = -6;
-        villager.velocityY = 0;
-        touches = [];
-    }
+
     if (getStartedToggle) {
         Enemy();
 
         survivalTime = Math.ceil((frameCount - totalTimeElaspedWhilePause) / frameRate());
-        if (keyIsDown(UP_ARROW)) {
+        if (keyIsDown(UP_ARROW) || (mouseIsPressed && up.overlapPoint(mouseX, mouseY)) ||
+            (touches.length == 1 && up.overlapPoint(touches[0].x, touches[0].y))) {
             villager.velocityX = 0;
             villager.velocityY = -6;
-        } else if (keyIsDown(DOWN_ARROW)) {
+        } else if (keyIsDown(DOWN_ARROW) || (mouseIsPressed && down.overlapPoint(mouseX, mouseY)) ||
+            (touches.length == 1 && down.overlapPoint(touches[0].x, touches[0].y))) {
             villager.velocityX = 0;
             villager.velocityY = 6;
-        } else if (keyIsDown(LEFT_ARROW)) {
+        } else if (keyIsDown(LEFT_ARROW) || (mouseIsPressed && left.overlapPoint(mouseX, mouseY)) ||
+            (touches.length == 1 && left.overlapPoint(touches[0].x, touches[0].y))) {
             villager.velocityX = -6;
             villager.velocityY = 0;
-        } else if (keyIsDown(RIGHT_ARROW)) {
+        } else if (keyIsDown(RIGHT_ARROW) || (mouseIsPressed && right.overlapPoint(mouseX, mouseY)) ||
+            (touches.length == 1 && right.overlapPoint(touches[0].x, touches[0].y))) {
             villager.velocityX = 6;
             villager.velocityY = 0;
         } else {
